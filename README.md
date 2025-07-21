@@ -1,4 +1,3 @@
-
 # @recordset/adonis6-scheduler
 
 A modern, TypeScript-first scheduler/cron integration for AdonisJS 6.
@@ -11,61 +10,37 @@ A modern, TypeScript-first scheduler/cron integration for AdonisJS 6.
 - Flexible cron schedule configuration
 - TypeScript-first, ESM-ready
 
-
 ## 📦 Installation
 
-```bash
-npm install @recordset/adonis6-scheduler
-```
+1. Install dependencies:
+    ```bash
+    npm install @recordset/adonis6-scheduler
+    ```
+2. Configure:
+    ```bash
+    node ace configure @recordset/adonis6-scheduler
+    ```
+3. Generate jobs with:
+    ```bash
+    node ace make:task MyTask
+    ```
+4. Start the worker:
+    ```bash
+    node ace scheduler:run
+    ```
 
-### (Optional) Configure with Ace command
-
-```bash
-node ace configure @recordset/adonis6-scheduler
-```
-
-## ⚡ Quick Start
-
-1. Register the provider and commands in `adonisrc.ts`:
-
-```typescript
-import { defineConfig } from '@adonisjs/core/app'
-
-export default defineConfig({
-  providers: [
-    () => import('@recordset/adonis6-scheduler/scheduler_provider'),
-  ],
-  commands: [
-    () => import('@recordset/adonis6-scheduler/commands/make_task'),
-    () => import('@recordset/adonis6-scheduler/commands/scheduler_run'),
-  ],
-})
-```
-
-2. Create a new scheduled task:
-
-```bash
-node ace make:task SendReportTask
-```
-
-3. Implement your task logic:
+## 🧑‍💻 Example Task
 
 ```typescript
-import { BaseTask } from '@recordset/adonis6-scheduler/src/scheduler/task'
+import { BaseTask } from '@recordset/adonis6-scheduler/task'
 
-export default class SendReportTask extends BaseTask {
-  static schedule = '0 0 * * *' // every day at midnight
+export default class MyTask extends BaseTask {
+    static schedule = '0 0 * * *' // every day at midnight
 
-  async handle() {
-    // Task logic here
-  }
+    async handle() {
+        // Task logic here
+    }
 }
-```
-
-4. Start the scheduler worker:
-
-```bash
-node ace scheduler:run
 ```
 
 ## 📚 Documentation

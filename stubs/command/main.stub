@@ -5,6 +5,7 @@
 }}}
 
 import { BaseTask, CronTimeV2 } from '@recordset/adonis6-scheduler/task'
+import logger from '@adonisjs/core/services/logger'
 
 export default class {{ taskName }} extends BaseTask {
     public static get schedule() {
@@ -22,7 +23,7 @@ export default class {{ taskName }} extends BaseTask {
     }
 
     public async handle() {
-        this.logger.info('Handled')
+        logger.info('Handled {{ taskName }}')
         // Remove this promise and insert your code:
         await new Promise((res) => setTimeout(res, 2000))
     }

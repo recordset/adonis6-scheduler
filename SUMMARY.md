@@ -38,53 +38,41 @@ Successfully created `@recordset/adonis6-scheduler` - a robust scheduler/cron in
 ## 🚀 **Quick Start:**
 
 ### 1. Install
+
 ```bash
 npm install @recordset/adonis6-scheduler
 node ace configure @recordset/adonis6-scheduler
 ```
 
-### 2. Setup (Manual - as shown by configure command)
-Add to `adonisrc.ts`:
-```typescript
-export default defineConfig({
-  providers: [
-    () => import('@recordset/adonis6-scheduler/scheduler_provider'),
-  ],
-  commands: [
-    () => import('@recordset/adonis6-scheduler/commands/make_task'),
-    () => import('@recordset/adonis6-scheduler/commands/scheduler_run'),
-  ],
-})
-```
-
 ### 3. Create Tasks
+
 ```bash
 node ace make:task SendReportTask
 ```
 
 ### 4. Run Scheduler
+
 ```bash
 node ace scheduler:run
 ```
 
 ### 5. Example Task
+
 ```typescript
-import { BaseTask } from '@recordset/adonis6-scheduler/src/scheduler/task'
+import { BaseTask } from '@recordset/adonis6-scheduler/task'
 
-export default class SendReportTask extends BaseTask {
-  static schedule = '0 0 * * *' // every day at midnight
+export default class MyTask extends BaseTask {
+    static schedule = '0 0 * * *' // every day at midnight
 
-  async handle() {
-    // Task logic here
-  }
+    async handle() {
+        // Task logic here
+    }
 }
 ```
 
 ## ✅ **Testing Status:**
 
-
 ## 📚 **Documentation:**
-
 
 ## 🎉 **Ready for Use!**
 

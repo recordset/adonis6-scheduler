@@ -8,6 +8,7 @@ export default class MakeTask extends BaseCommand {
     public static description = 'Generate task from template'
     static options: CommandOptions = {
         allowUnknownFlags: true,
+        startApp: true,
     }
 
     @args.string({ description: 'Name of the task class' })

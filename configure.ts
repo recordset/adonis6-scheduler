@@ -13,6 +13,7 @@
 */
 
 import type Configure from '@adonisjs/core/commands/configure'
+import { stubsRoot } from './stubs/index.js'
 
 export async function configure(command: Configure) {
     const codemods = await command.createCodemods()
@@ -23,4 +24,7 @@ export async function configure(command: Configure) {
             .addProvider('@recordset/adonis6-scheduler/scheduler_provider')
             .addCommand('@recordset/adonis6-scheduler/commands')
     })
+
+    // Create config file
+    await codemods.makeUsingStub(stubsRoot, 'config/scheduler.stub', {})
 }

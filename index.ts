@@ -9,3 +9,4 @@
 
 export { stubsRoot } from './stubs/index.js'
 export { configure } from './configure.js'
+export type { SchedulerConfig } from './src/types/config.js'

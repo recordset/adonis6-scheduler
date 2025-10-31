@@ -1,0 +1,13 @@
+/**
+ * Scheduler configuration
+ */
+{{{
+  exports({ to: app.configPath('scheduler.ts') })
+}}}
+
+export default {
+  /**
+   * Path where task classes are located
+   */
+  tasksPath: 'app/tasks',
+}

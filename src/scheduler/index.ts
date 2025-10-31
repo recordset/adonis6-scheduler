@@ -5,6 +5,7 @@ import { BaseTask } from './task.js'
 import NodeSchedule from 'node-schedule'
 import cronstrue from 'cronstrue'
 import { ApplicationService, LoggerService } from '@adonisjs/core/types'
+import type { SchedulerConfig } from '../types/config.js'
 
 export default class Scheduler {
     private appRootPath: string
@@ -27,10 +28,13 @@ export default class Scheduler {
 
     /**
      * Configure tasks absolute path for app
-     * /<project-dir>/app/Tasks
+     * Reads from config or defaults to 'app/tasks'
      */
     private _configureTasksPath() {
-        this.tasksPath = path.join(this.appRootPath, 'app', 'tasks')
+        const config = this.app.config.get<SchedulerConfig>('scheduler')
+        const configTasksPath = config?.tasksPath || 'app/tasks'
+        
+        this.tasksPath = path.join(this.appRootPath, configTasksPath)
         this.tasksPath = path.normalize(this.tasksPath)
     }
 

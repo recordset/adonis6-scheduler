@@ -1,7 +1,7 @@
 {{#var taskName = string(entity.name).removeSuffix('task').suffix('Task').pascalCase().toString()}}
 {{#var taskFileName = string(entity.name).removeSuffix('task').suffix('Task').snakeCase().removeExtension().ext('.ts').toString()}}
 {{{
-  exports({ to: app.makePath('app/tasks', entity.path, taskFileName) })
+  exports({ to: app.makePath(tasksPath, entity.path, taskFileName) })
 }}}
 
 import { BaseTask, CronTimeV2 } from '@recordset/adonis6-scheduler/task'

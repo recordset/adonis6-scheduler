@@ -3,10 +3,11 @@
 {{{
   exports({ to: app.makePath(tasksPath, entity.path, taskFileName) })
 }}}
-
+import { inject } from '@adonisjs/core'
 import { BaseTask, CronTimeV2 } from '@recordset/adonis6-scheduler/task'
 import logger from '@adonisjs/core/services/logger'
 
+@inject()
 export default class {{ taskName }} extends BaseTask {
     public static get schedule() {
         // Use CronTimeV2 generator:

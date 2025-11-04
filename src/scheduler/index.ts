@@ -42,7 +42,11 @@ export default class Scheduler {
      * Load task file
      */
     private async _fetchTask(task: typeof BaseTask) {
-        let taskInstance = new task(this.appRootPath + '/tmp/adonis6-scheduler/locks', this.logger)
+        // 🔥 Use container.make() for IoC/DI support (@inject decorator)
+        let taskInstance = await this.app.container.make(task)
+        
+        // Initialize task dependencies (tmpPath, logger)
+        taskInstance.init(this.appRootPath + '/tmp/adonis6-scheduler/locks', this.logger)
 
         const taskInstanceConstructor = taskInstance.constructor as typeof BaseTask
         // Every task must expose a schedule

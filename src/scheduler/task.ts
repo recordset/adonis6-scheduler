@@ -59,10 +59,10 @@ export class CronTimeV2 extends CronTime {
  * @description Task base class
  */
 export class BaseTask {
-    public name: string
-    public locker: LockerInterface
-    public startedAt: number
-    public logger: LoggerService
+    public name!: string
+    public locker!: LockerInterface
+    public startedAt!: number
+    public logger!: LoggerService
 
     /**
      * Set enable use .lock file for block run retry task
@@ -76,13 +76,28 @@ export class BaseTask {
     }
 
     constructor(
-        protected tmpPath: string,
-        logger: LoggerService
+        protected tmpPath?: string,
+        logger?: LoggerService
     ) {
+        // Allow creation without parameters for IoC/DI
+        if (tmpPath && logger) {
+            this.tmpPath = tmpPath
+            this.logger = logger
+            this.name = this._getName()
+            this.locker = this._getLocker()
+            this.startedAt = 0
+        }
+    }
+
+    /**
+     * Initialize task (called by scheduler after container.make)
+     */
+    public init(tmpPath: string, logger: LoggerService) {
+        this.tmpPath = tmpPath
+        this.logger = logger
         this.name = this._getName()
         this.locker = this._getLocker()
         this.startedAt = 0
-        this.logger = logger
     }
 
     /**
@@ -99,7 +114,7 @@ export class BaseTask {
             .toLowerCase()
     }
     protected _getLocker(): LockerInterface {
-        return new Locker(this.name, this.tmpPath)
+        return new Locker(this.name, this.tmpPath!)
     }
 
     public async _run() {
